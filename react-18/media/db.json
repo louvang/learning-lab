@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "name": "Johanna Kertzmann-Buckridge",
+      "id": 2
+    },
+    {
+      "name": "Monica Johns-Haley",
+      "id": 4
+    },
+    {
+      "name": "Rachel Beahan",
+      "id": 5
+    },
+    {
+      "name": "Michelle West",
+      "id": 6
+    },
+    {
+      "name": "Andre Cronin-Jenkins",
+      "id": 7
+    },
+    {
+      "name": "Dr. Carlos Stamm IV",
+      "id": 8
+    },
+    {
+      "name": "Gene Kirlin",
+      "id": 14
+    }
+  ],
+  "albums": [],
+  "photos": []
+}
