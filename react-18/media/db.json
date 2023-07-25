@@ -29,6 +29,68 @@
       "id": 14
     }
   ],
-  "albums": [],
-  "photos": []
+  "albums": [
+    {
+      "userId": 2,
+      "title": "Tasty Fresh Car",
+      "id": 110926
+    },
+    {
+      "userId": 5,
+      "title": "Oriental Concrete Hat",
+      "id": 110930
+    },
+    {
+      "userId": 2,
+      "title": "Awesome Bronze Fish",
+      "id": 110931
+    },
+    {
+      "userId": 4,
+      "title": "Tasty Rubber Salad",
+      "id": 110932
+    }
+  ],
+  "photos": [
+    {
+      "albumId": 110926,
+      "url": "https://loremflickr.com/150/150/abstract?lock=1752612814716928",
+      "id": 1
+    },
+    {
+      "albumId": 110926,
+      "url": "https://loremflickr.com/150/150/abstract?lock=1419402408886272",
+      "id": 3
+    },
+    {
+      "albumId": 110926,
+      "url": "https://loremflickr.com/150/150/abstract?lock=1929226951327744",
+      "id": 4
+    },
+    {
+      "albumId": 110931,
+      "url": "https://loremflickr.com/150/150/abstract?lock=4036453816336384",
+      "id": 5
+    },
+    {
+      "albumId": 110931,
+      "url": "https://loremflickr.com/150/150/abstract?lock=8614956199051264",
+      "id": 6
+    },
+    {
+      "albumId": 110932,
+      "url": "https://loremflickr.com/150/150/abstract?lock=4779405557628928",
+      "id": 7
+    },
+    {
+      "albumId": 110932,
+      "url": "https://loremflickr.com/150/150/abstract?lock=3785890461646848",
+      "id": 10
+    },
+    {
+      "albumId": 110932,
+      "url": "https://loremflickr.com/150/150/abstract?lock=2390190110801920",
+      "id": 11
+    }
+  ]
 }
