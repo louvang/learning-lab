@@ -1,6 +1,14 @@
 class Vehicle {
   constructor(public color: string) {}
 
+  /** THe above is shorthand for
+   
+  constructor(color) {
+    this.color = color;
+  }
+   
+  */
+
   protected honk(): void {
     console.log('beep');
   }
