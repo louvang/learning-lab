@@ -584,6 +584,83 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"h7u1C":[function(require,module,exports) {
+var _user = require("./model/User");
+const user = new (0, _user.User)({
+    name: "Jane",
+    age: 27
+});
+user.on("change", ()=>{
+    console.log("Change #1");
+});
+user.on("change", ()=>{
+    console.log("Change #2");
+});
+user.on("save", ()=>{
+    console.log("Save was triggered");
+});
+user.trigger("change");
+user.trigger("save");
+
+},{"./model/User":"eQi30"}],"eQi30":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "User", ()=>User);
+class User {
+    constructor(data){
+        this.data = data;
+        this.// events is going to be an object with keys of strings that point at an array of callback functions;
+        // initialized as an empty object
+        events = {};
+    }
+    get(propName) {
+        return this.data[propName];
+    }
+    set(update) {
+        Object.assign(this.data, update);
+    }
+    on(eventName, callback) {
+        const handlers = this.events[eventName] || [];
+        handlers.push(callback);
+        this.events[eventName] = handlers;
+    }
+    trigger(eventName) {
+        const handlers = this.events[eventName];
+        if (!handlers || handlers.length === 0) return;
+        handlers.forEach((callback)=>{
+            callback();
+        });
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}],"16sUN":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["dWPT5","h7u1C"], "h7u1C", "parcelRequire94c2")
 
