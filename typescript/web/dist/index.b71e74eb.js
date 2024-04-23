@@ -600,22 +600,17 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
 var _eventing = require("./Eventing");
 var _sync = require("./Sync");
+var _attributes = require("./Attributes");
 const rootUrl = "http://localhost:3000/users";
 class User {
-    constructor(data){
-        this.data = data;
+    constructor(attrs){
         this.events = new (0, _eventing.Eventing)();
         this.sync = new (0, _sync.Sync)(rootUrl);
-    }
-    get(propName) {
-        return this.data[propName];
-    }
-    set(update) {
-        Object.assign(this.data, update);
+        this.attributes = new (0, _attributes.Attributes)(attrs);
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN","./Eventing":"7459s","./Sync":"QO3Gl"}],"16sUN":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN","./Eventing":"7459s","./Sync":"QO3Gl","./Attributes":"6Bbds"}],"16sUN":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -5065,6 +5060,26 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
     HttpStatusCode[value] = key;
 });
 exports.default = HttpStatusCode;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}],"6Bbds":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Attributes", ()=>Attributes);
+class Attributes {
+    constructor(data){
+        this.data = data;
+    }
+    // T is the interface we pass in (eg UserProps)
+    // K means can only be one of the keys of T
+    // (key: K) means the arg can only be of type K
+    // T[K] means we will return the type of the key
+    get(key) {
+        return this.data[key];
+    }
+    set(update) {
+        Object.assign(this.data, update);
+    }
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}]},["dWPT5","h7u1C"], "h7u1C", "parcelRequire94c2")
 

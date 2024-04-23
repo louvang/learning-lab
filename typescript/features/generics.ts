@@ -94,3 +94,36 @@ function printMiceOrCats<T extends Printable>(arr: T[]): void {
 printMiceOrCats<Mouse>([new Mouse(), new Mouse(), new Mouse()]); // no errors because each element has a print method
 
 printMiceOrCats<Cat>([new Cat(), new Cat(), new Cat()]);
+
+// Getting value of each key will also check the type of each key and ensure proper type is being returned
+
+interface UserProps {
+  id?: number;
+  name?: string;
+  age?: number;
+}
+
+export class Attributes<T extends {}> {
+  constructor(private data: T) {}
+
+  // T is the interface we pass in (eg UserProps)
+  // K means can only be one of the keys of T
+  // (key: K) means the arg can only be of type K
+  // T[K] means we will return the type of the key
+  get<K extends keyof T>(key: K): T[K] {
+    return this.data[key];
+  }
+
+  set(update: T): void {
+    Object.assign(this.data, update);
+  }
+}
+
+const attrs = new Attributes<UserProps>({
+  id: 5,
+  age: 20,
+  name: 'George',
+});
+
+const name = attrs.get('name');
+const age = attrs.get('age');
