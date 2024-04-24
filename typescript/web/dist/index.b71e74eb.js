@@ -589,10 +589,11 @@ const user = new (0, _user.User)({
     name: "new record",
     age: 0
 });
-user.events.on("change", ()=>{
-    console.log("change!");
+console.log(user.get("name"));
+user.on("change", ()=>{
+    console.log("user was changed");
 });
-user.events.trigger("change");
+user.trigger("change");
 
 },{"./models/User":"4rcHn"}],"4rcHn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -607,6 +608,15 @@ class User {
         this.events = new (0, _eventing.Eventing)();
         this.sync = new (0, _sync.Sync)(rootUrl);
         this.attributes = new (0, _attributes.Attributes)(attrs);
+    }
+    get on() {
+        return this.events.on;
+    }
+    get trigger() {
+        return this.events.trigger;
+    }
+    get get() {
+        return this.attributes.get;
     }
 }
 
@@ -645,22 +655,22 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Eventing", ()=>Eventing);
 class Eventing {
-    on(eventName, callback) {
-        const handlers = this.events[eventName] || [];
-        handlers.push(callback);
-        this.events[eventName] = handlers;
-    }
-    trigger(eventName) {
-        const handlers = this.events[eventName];
-        if (!handlers || handlers.length === 0) return;
-        handlers.forEach((callback)=>{
-            callback();
-        });
-    }
     constructor(){
         // events is going to be an object with keys of strings that point at an array of callback functions;
         // initialized as an empty object
         this.events = {};
+        this.on = (eventName, callback)=>{
+            const handlers = this.events[eventName] || [];
+            handlers.push(callback);
+            this.events[eventName] = handlers;
+        };
+        this.trigger = (eventName)=>{
+            const handlers = this.events[eventName];
+            if (!handlers || handlers.length === 0) return;
+            handlers.forEach((callback)=>{
+                callback();
+            });
+        };
     }
 }
 
@@ -5068,13 +5078,13 @@ parcelHelpers.export(exports, "Attributes", ()=>Attributes);
 class Attributes {
     constructor(data){
         this.data = data;
-    }
-    // T is the interface we pass in (eg UserProps)
-    // K means can only be one of the keys of T
-    // (key: K) means the arg can only be of type K
-    // T[K] means we will return the type of the key
-    get(key) {
-        return this.data[key];
+        this.// T is the interface we pass in (eg UserProps)
+        // K means can only be one of the keys of T
+        // (key: K) means the arg can only be of type K
+        // T[K] means we will return the type of the key
+        get = (key)=>{
+            return this.data[key];
+        };
     }
     set(update) {
         Object.assign(this.data, update);
