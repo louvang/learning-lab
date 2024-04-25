@@ -586,14 +586,14 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"h7u1C":[function(require,module,exports) {
 var _user = require("./models/User");
 const user = new (0, _user.User)({
-    name: "new record",
+    id: 1,
+    name: "newer name",
     age: 0
 });
-console.log(user.get("name"));
-user.on("change", ()=>{
-    console.log("user was changed");
+user.on("save", ()=>{
+    console.log(user);
 });
-user.trigger("change");
+user.save();
 
 },{"./models/User":"4rcHn"}],"4rcHn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -617,6 +617,24 @@ class User {
     }
     get get() {
         return this.attributes.get;
+    }
+    set(update) {
+        this.attributes.set(update);
+        this.events.trigger("change");
+    }
+    fetch() {
+        const id = this.attributes.get("id");
+        if (typeof id !== "number") throw new Error("Cannot fetch without an id");
+        this.sync.fetch(id).then((response)=>{
+            this.set(response.data);
+        });
+    }
+    save() {
+        this.sync.save(this.attributes.getAll()).then((response)=>{
+            this.trigger("save");
+        }).catch(()=>{
+            this.trigger("error");
+        });
     }
 }
 
@@ -5088,6 +5106,9 @@ class Attributes {
     }
     set(update) {
         Object.assign(this.data, update);
+    }
+    getAll() {
+        return this.data;
     }
 }
 
