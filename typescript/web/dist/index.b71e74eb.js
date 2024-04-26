@@ -694,15 +694,9 @@ class Model {
         this.attributes = attributes;
         this.events = events;
         this.sync = sync;
-    }
-    get on() {
-        return this.events.on;
-    }
-    get trigger() {
-        return this.events.trigger;
-    }
-    get get() {
-        return this.attributes.get;
+        this.on = this.events.on;
+        this.trigger = this.events.trigger;
+        this.get = this.attributes.get;
     }
     set(update) {
         this.attributes.set(update);
