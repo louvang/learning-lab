@@ -596,17 +596,41 @@ class UserForm {
     constructor(parent){
         this.parent = parent;
     }
+    // Use an events map to bind event handlers (handy when you don't have JSX)
+    eventsMap() {
+        return {
+            "click:button": this.onButtonClick,
+            "mouseover:h1": this.onHeaderHover
+        };
+    }
+    onButtonClick() {
+        console.log("hi there");
+    }
+    onHeaderHover() {
+        console.log("h1 was hovered");
+    }
     template() {
         return `
       <div>
         <h1>User Form</h1>
         <input />
+        <button>Click Me</button>
       </div>
     `;
+    }
+    bindEvents(fragment) {
+        const eventsMap = this.eventsMap();
+        for(let eventKey in eventsMap){
+            const [eventName, selector] = eventKey.split(":");
+            fragment.querySelectorAll(selector).forEach((element)=>{
+                element.addEventListener(eventName, eventsMap[eventKey]);
+            });
+        }
     }
     render() {
         const templateElement = document.createElement("template");
         templateElement.innerHTML = this.template();
+        this.bindEvents(templateElement.content);
         this.parent.append(templateElement.content);
     }
 }
