@@ -5213,6 +5213,9 @@ class View {
         this.model = model;
         this.bindModel();
     }
+    eventsMap() {
+        return {};
+    }
     bindModel() {
         this.model.on("change", ()=>{
             this.render();
