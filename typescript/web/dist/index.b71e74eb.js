@@ -5162,29 +5162,8 @@ class Collection {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "UserForm", ()=>UserForm);
-class UserForm {
-    constructor(parent, model){
-        this.parent = parent;
-        this.model = model;
-        this.onSetAgeClick = ()=>{
-            this.model.setRandomAge();
-        };
-        this.onSetNameClick = ()=>{
-            const input = this.parent.querySelector("input");
-            if (input) {
-                const name = input.value;
-                this.model.set({
-                    name
-                });
-            }
-        };
-        this.bindModel();
-    }
-    bindModel() {
-        this.model.on("change", ()=>{
-            this.render();
-        });
-    }
+var _view = require("./View");
+class UserForm extends (0, _view.View) {
     // Use an events map to bind event handlers (handy when you don't have JSX)
     eventsMap() {
         return {
@@ -5203,6 +5182,38 @@ class UserForm {
         <button class="set-age">Set Random Age</button>
       </div>
     `;
+    }
+    constructor(...args){
+        super(...args);
+        this.onSetAgeClick = ()=>{
+            this.model.setRandomAge();
+        };
+        this.onSetNameClick = ()=>{
+            const input = this.parent.querySelector("input");
+            if (input) {
+                const name = input.value;
+                this.model.set({
+                    name
+                });
+            }
+        };
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN","./View":"5Vo78"}],"5Vo78":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "View", ()=>View);
+class View {
+    constructor(parent, model){
+        this.parent = parent;
+        this.model = model;
+        this.bindModel();
+    }
+    bindModel() {
+        this.model.on("change", ()=>{
+            this.render();
+        });
     }
     bindEvents(fragment) {
         const eventsMap = this.eventsMap();
