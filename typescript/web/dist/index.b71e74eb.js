@@ -590,102 +590,13 @@ const user = (0, _user.User).buildUser({
     name: "NAME",
     age: 20
 });
-const userForm = new (0, _userForm.UserForm)(document.getElementById("root"), user);
-userForm.render();
+const root = document.getElementById("root");
+if (root) {
+    const userForm = new (0, _userForm.UserForm)(root, user);
+    userForm.render();
+} else throw new Error("Root element not found");
 
-},{"./views/UserForm":"gXSLD","./models/User":"4rcHn"}],"gXSLD":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "UserForm", ()=>UserForm);
-class UserForm {
-    constructor(parent, model){
-        this.parent = parent;
-        this.model = model;
-        this.onSetAgeClick = ()=>{
-            this.model.setRandomAge();
-        };
-        this.onSetNameClick = ()=>{
-            const input = this.parent.querySelector("input");
-            const name = input?.value;
-            this.model.set({
-                name
-            });
-        };
-        this.bindModel();
-    }
-    bindModel() {
-        this.model.on("change", ()=>{
-            this.render();
-        });
-    }
-    // Use an events map to bind event handlers (handy when you don't have JSX)
-    eventsMap() {
-        return {
-            "click:.set-age": this.onSetAgeClick,
-            "click:.set-name": this.onSetNameClick
-        };
-    }
-    template() {
-        return `
-      <div>
-        <h1>User Form</h1>
-        <div>User name: ${this.model.get("name")}</div>
-        <div>User name: ${this.model.get("age")}</div>
-        <input />
-        <button class="set-name">Change Name</button>
-        <button class="set-age">Set Random Age</button>
-      </div>
-    `;
-    }
-    bindEvents(fragment) {
-        const eventsMap = this.eventsMap();
-        for(let eventKey in eventsMap){
-            const [eventName, selector] = eventKey.split(":");
-            fragment.querySelectorAll(selector).forEach((element)=>{
-                element.addEventListener(eventName, eventsMap[eventKey]);
-            });
-        }
-    }
-    render() {
-        this.parent.innerHTML = "";
-        const templateElement = document.createElement("template");
-        templateElement.innerHTML = this.template();
-        this.bindEvents(templateElement.content);
-        this.parent.append(templateElement.content);
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}],"16sUN":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"4rcHn":[function(require,module,exports) {
+},{"./models/User":"4rcHn","./views/UserForm":"gXSLD"}],"4rcHn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
@@ -743,7 +654,37 @@ class Model {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}],"6Bbds":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}],"16sUN":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"6Bbds":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Attributes", ()=>Attributes);
@@ -5217,6 +5158,70 @@ class Collection {
     }
 }
 
-},{"axios":"jo6P5","./Eventing":"7459s","@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}]},["dWPT5","h7u1C"], "h7u1C", "parcelRequire94c2")
+},{"axios":"jo6P5","./Eventing":"7459s","@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}],"gXSLD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "UserForm", ()=>UserForm);
+class UserForm {
+    constructor(parent, model){
+        this.parent = parent;
+        this.model = model;
+        this.onSetAgeClick = ()=>{
+            this.model.setRandomAge();
+        };
+        this.onSetNameClick = ()=>{
+            const input = this.parent.querySelector("input");
+            if (input) {
+                const name = input.value;
+                this.model.set({
+                    name
+                });
+            }
+        };
+        this.bindModel();
+    }
+    bindModel() {
+        this.model.on("change", ()=>{
+            this.render();
+        });
+    }
+    // Use an events map to bind event handlers (handy when you don't have JSX)
+    eventsMap() {
+        return {
+            "click:.set-age": this.onSetAgeClick,
+            "click:.set-name": this.onSetNameClick
+        };
+    }
+    template() {
+        return `
+      <div>
+        <h1>User Form</h1>
+        <div>User name: ${this.model.get("name")}</div>
+        <div>User name: ${this.model.get("age")}</div>
+        <input />
+        <button class="set-name">Change Name</button>
+        <button class="set-age">Set Random Age</button>
+      </div>
+    `;
+    }
+    bindEvents(fragment) {
+        const eventsMap = this.eventsMap();
+        for(let eventKey in eventsMap){
+            const [eventName, selector] = eventKey.split(":");
+            fragment.querySelectorAll(selector).forEach((element)=>{
+                element.addEventListener(eventName, eventsMap[eventKey]);
+            });
+        }
+    }
+    render() {
+        this.parent.innerHTML = "";
+        const templateElement = document.createElement("template");
+        templateElement.innerHTML = this.template();
+        this.bindEvents(templateElement.content);
+        this.parent.append(templateElement.content);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"16sUN"}]},["dWPT5","h7u1C"], "h7u1C", "parcelRequire94c2")
 
 //# sourceMappingURL=index.b71e74eb.js.map
