@@ -30,8 +30,6 @@ export class UserForm extends View<User, UserProps> {
   };
 
   template(): string {
-    console.log(this.model.get('name'));
-
     return `
       <div>
         <input type="text" placeholder="${this.model.get('name')}" />
