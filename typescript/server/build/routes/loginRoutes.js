@@ -5,7 +5,22 @@ const express_1 = require("express");
 const router = (0, express_1.Router)();
 exports.router = router;
 router.get('/', (req, res) => {
-    res.send('hello');
+    if (req.session && req.session.loggedIn) {
+        res.send(`
+      <div>
+        <div>You are logged in.</div>
+        <a href="/logout">Logout</a>
+      </div>
+    `);
+    }
+    else {
+        res.send(`
+      <div>
+        <div>You are not logged in.</div>
+        <a href="/login">Login</a>
+      </div>
+    `);
+    }
 });
 router.get('/login', (req, res) => {
     res.send(`
@@ -31,4 +46,8 @@ router.post('/login', (req, res) => {
     else {
         res.send('Invalid email or password');
     }
+});
+router.get('/logout', (req, res) => {
+    req.session = undefined;
+    res.redirect('/');
 });
